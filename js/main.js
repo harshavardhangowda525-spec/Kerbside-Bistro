@@ -22,10 +22,16 @@
   const isUnsplashId = (src) => /^photo-[\w-]+$/.test(src);
   const imgUrl = (src, w) => (isUnsplashId(src) ? `https://images.unsplash.com/${src}?w=${w}&q=70&auto=format&fit=crop` : src);
 
+  function markFallback(wrap, label) {
+    if (!wrap) return;
+    wrap.classList.add("img-fallback");
+    if (label) wrap.dataset.ph = label;
+  }
+
   function setImg(img, data, sizes = "100vw", widths = [640, 960, 1400, 2000]) {
     if (!img || !data) return;
     const wrap = img.parentElement;
-    img.addEventListener("error", () => wrap && wrap.classList.add("img-fallback"), { once: true });
+    img.addEventListener("error", () => markFallback(wrap, data.alt), { once: true });
     if (isUnsplashId(data.src)) {
       img.srcset = widths.map((w) => `${imgUrl(data.src, w)} ${w}w`).join(", ");
       img.sizes = sizes;
@@ -35,7 +41,10 @@
   }
 
   const hero = $(".hero__img");
-  if (hero) hero.addEventListener("error", () => hero.parentElement.classList.add("img-fallback"), { once: true });
+  if (hero) {
+    if (hero.complete && hero.naturalWidth === 0) markFallback(hero.parentElement);
+    else hero.addEventListener("error", () => markFallback(hero.parentElement), { once: true });
+  }
   setImg($('[data-img="experience"]'), S.images && S.images.experience, "(max-width: 860px) 92vw, 45vw");
   setImg($('[data-img="experienceDetail"]'), S.images && S.images.experienceDetail, "(max-width: 860px) 42vw, 20vw", [400, 640, 960]);
   setImg($('[data-img="booking"]'), S.images && S.images.booking, "(max-width: 860px) 92vw, 45vw");
@@ -598,8 +607,9 @@
       window.open(wa, "_blank", "noopener");
       showStatus(`<h3>Enquiry ready — not yet confirmed</h3>
         <p>${summary}</p>
-        <p>WhatsApp has opened with your request. Please press <strong>send</strong> there. Your table is confirmed only once Kerbside Bistro replies.</p>
-        <p>WhatsApp didn't open? <a href="${esc(wa)}" target="_blank" rel="noopener">Open it here</a> or call ${telLink}.</p>`);
+        <p>Send it on WhatsApp to reach Kerbside Bistro. Your table is confirmed only once the restaurant replies.</p>
+        <p class="book__status-actions"><a class="btn btn--primary btn--sm" href="${esc(wa)}" target="_blank" rel="noopener"><span>Send on WhatsApp</span></a>
+        <span>or call <strong>${esc(S.phone.display)}</strong></span></p>`);
     });
   }
 

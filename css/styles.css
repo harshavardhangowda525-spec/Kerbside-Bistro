@@ -34,6 +34,7 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.65);
+  color-scheme: dark;
 }
 
 /* ---------- Reset ---------- */
@@ -63,6 +64,7 @@ address { font-style: normal; }
 ::selection { background: var(--caramel); color: var(--espresso); }
 :focus-visible { outline: 2px solid var(--crema); outline-offset: 4px; border-radius: 6px; }
 
+main { overflow-x: clip; }
 .container { width: min(100% - var(--gutter) * 2, var(--max)); margin-inline: auto; }
 
 .skip-link {
@@ -347,9 +349,13 @@ address { font-style: normal; }
 /* Image frames + fallback (shown if an image fails to load) */
 .frame, .img-wrap { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: var(--roast); }
 .frame img, .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.img-fallback { background: radial-gradient(80% 80% at 30% 20%, rgba(200, 149, 95, 0.35), transparent 60%), linear-gradient(135deg, #2c221b, #18120e); }
+.img-fallback.img-fallback { background: radial-gradient(80% 80% at 30% 20%, rgba(200, 149, 95, 0.35), transparent 60%), linear-gradient(135deg, #2c221b, #18120e); }
 .img-fallback img { opacity: 0; }
 .img-fallback::after { content: "K"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-style: italic; font-size: 3rem; color: rgba(243, 233, 220, 0.25); }
+.img-fallback[data-ph]::after { content: "Photo · " attr(data-ph); align-items: end; padding: 1.2rem 1.4rem 3rem; font-size: 0.95rem; line-height: 1.3; text-align: center; color: rgba(243, 233, 220, 0.4); }
+.g-item.img-fallback[data-ph]::after { content: ""; padding: 0; }
+.g-item.img-fallback:nth-child(3n + 2) { background: radial-gradient(70% 90% at 80% 10%, rgba(226, 191, 148, 0.3), transparent 60%), linear-gradient(200deg, #33271f, #17110d); }
+.g-item.img-fallback:nth-child(3n) { background: radial-gradient(90% 70% at 20% 90%, rgba(170, 110, 70, 0.35), transparent 65%), linear-gradient(160deg, #2a1f18, #120e0b); }
 
 /* ==========================================================================
    EXPERIENCE
@@ -559,6 +565,9 @@ address { font-style: normal; }
 .book__status.is-error { border-color: rgba(229, 154, 138, 0.4); background: rgba(229, 154, 138, 0.08); }
 .book__status a { color: var(--crema); border-bottom: 1px solid currentColor; }
 .book__status p + p { margin-top: 0.5rem; }
+.book__status-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; padding-top: 0.4rem; }
+.book__status .book__status-actions a.btn { color: var(--espresso); border-bottom: 1px solid var(--caramel); }
+.book__status .book__status-actions a.btn:hover { color: var(--espresso); }
 
 /* ==========================================================================
    FOOTER
@@ -619,7 +628,7 @@ address { font-style: normal; }
   .demo-tag--corner { top: auto; bottom: 1rem; }
   .experience__grid, .visit__grid, .book__grid { grid-template-columns: 1fr; }
   .experience__media { max-width: 560px; margin-inline: auto; width: 100%; }
-  .frame--small { right: -2%; }
+  .frame--small { right: 0; }
   .experience__badge { width: 104px; height: 104px; left: -2%; }
   .experience__badge i { width: 50px; height: 50px; font-size: 1.6rem; }
   .stats { grid-template-columns: 1fr 1fr; }
