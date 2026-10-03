@@ -177,7 +177,7 @@
       <article class="menu-card">
         <div class="menu-card__media">
           <img alt="${esc(cat.image ? cat.image.alt : "")}" decoding="async" />
-          <span class="demo-tag">${hasItems ? "Sample prices · Representative image" : "Sample layout · Representative image"}</span>
+          <span class="demo-tag">${hasItems ? "Sample prices · Illustration" : "Sample layout · Illustration"}</span>
         </div>
         <div class="menu-card__body">
           <h3 class="menu-card__title">${esc(cat.name)}</h3>

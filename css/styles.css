@@ -283,6 +283,7 @@ main { overflow-x: clip; }
   position: absolute; inset: 0; z-index: -2;
   background:
     linear-gradient(180deg, rgba(18, 15, 11, 0.7) 0%, rgba(18, 15, 11, 0.1) 30%, rgba(18, 15, 11, 0.35) 60%, var(--bg) 100%),
+    linear-gradient(90deg, rgba(18, 15, 11, 0.88) 0%, rgba(18, 15, 11, 0.6) 38%, rgba(18, 15, 11, 0) 68%),
     radial-gradient(90% 70% at 15% 85%, rgba(18, 15, 11, 0.85), transparent 70%);
 }
 .hero__orbs i {
@@ -627,6 +628,7 @@ main { overflow-x: clip; }
   .nav__cta { display: none; }
   .hero { justify-content: flex-end; }
   .hero__side { display: none; }
+  .hero__img { object-position: 86% 60%; opacity: 0.6; }
   .hero__address { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.7rem; }
   .hero__address b { grid-column: 2; justify-self: start; }
   .hero__title .line:last-child { padding-left: 0; }

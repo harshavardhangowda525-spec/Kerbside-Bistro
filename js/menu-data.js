@@ -15,7 +15,7 @@ window.MENU = [
     id: "donne-biryani",
     name: "Donne Biryani",
     blurb: "Seeraga samba rice cooked with whole spices, mint and green chilli, served hot in a leaf donne.",
-    image: { src: "photo-1563379091339-03b21ab4a4f8", alt: "Chicken biryani on a plate" },
+    image: { src: "assets/illustrations/menu-donne.svg", alt: "Illustration of chicken donne biryani with egg" },
     items: [
       { name: "Chicken Donne Biryani", description: "Tender chicken in green masala rice. The house classic.", price: "₹240", tags: ["non-veg", "signature"] },
       { name: "Mutton Donne Biryani", description: "Bone-in mutton, slow-cooked with seeraga samba rice.", price: "₹340", tags: ["non-veg", "signature"] },
@@ -29,7 +29,7 @@ window.MENU = [
     id: "kababs",
     name: "Kababs & Starters",
     blurb: "Fried and roasted to order — the plate that sits beside every biryani.",
-    image: { src: "photo-1610057099443-fde8c4d50f91", alt: "Fried chicken kabab" },
+    image: { src: "assets/illustrations/menu-kabab.svg", alt: "Illustration of chicken kabab" },
     items: [
       { name: "Chicken Kabab", description: "Bengaluru-style, red-masala marinated and deep fried.", price: "₹200", tags: ["non-veg", "spicy", "signature"] },
       { name: "Chicken 65", description: "Curry leaf, green chilli and a crisp coating.", price: "₹220", tags: ["non-veg", "spicy"] },
@@ -42,7 +42,7 @@ window.MENU = [
     id: "chicken",
     name: "Chicken",
     blurb: "Gravies and roasts for rice, parotta or ragi mudde.",
-    image: { src: "photo-1603894584373-5ac82b2ae398", alt: "Chicken curry in a bowl" },
+    image: { src: "assets/illustrations/menu-chicken.svg", alt: "Illustration of chicken ghee roast" },
     items: [
       { name: "Gowdru Special Chicken", description: "House dry chicken, coconut and roasted spices.", price: "₹290", tags: ["non-veg", "spicy", "signature"] },
       { name: "Chicken Ghee Roast", description: "Red chilli and ghee, roasted down until thick.", price: "₹290", tags: ["non-veg", "spicy"] },
@@ -54,7 +54,7 @@ window.MENU = [
     id: "mutton",
     name: "Mutton",
     blurb: "Slow-cooked goat — fries, curries and the cuts regulars ask for.",
-    image: { src: "photo-1596797038530-2c107229654b", alt: "Spiced mutton dish" },
+    image: { src: "assets/illustrations/menu-mutton.svg", alt: "Illustration of mutton pepper fry" },
     items: [
       { name: "Mutton Pepper Fry", description: "Bone-in pieces tossed with crushed pepper.", price: "₹340", tags: ["non-veg", "spicy"] },
       { name: "Mutton Chops", description: "Rib chops in a thick, dark masala.", price: "₹340", tags: ["non-veg"] },
@@ -67,7 +67,7 @@ window.MENU = [
     id: "nati",
     name: "Nati Specials",
     blurb: "Old Mysore village cooking — country chicken, saaru and ragi.",
-    image: { src: "photo-1565557623262-b51c2513a641", alt: "Bowls of curry" },
+    image: { src: "assets/illustrations/menu-nati.svg", alt: "Illustration of ragi mudde with saaru on a banana leaf" },
     items: [
       { name: "Ragi Mudde & Nati Koli Saaru", description: "Two ragi balls with country-chicken curry.", price: "₹320", tags: ["non-veg", "signature"] },
       { name: "Nati Koli Saaru", description: "Country-chicken curry, thin and fiery.", price: "₹280", tags: ["non-veg", "spicy"] },
@@ -80,7 +80,7 @@ window.MENU = [
     id: "rice-sides",
     name: "Rice & Sides",
     blurb: "Everything else that belongs on the table.",
-    image: { src: "photo-1585937421612-70a008356fbe", alt: "Several dishes on a table" },
+    image: { src: "assets/illustrations/menu-sides.svg", alt: "Illustration of parotta with egg masala" },
     items: [
       { name: "Egg Burji", description: "Scrambled eggs with onion and green chilli.", price: "₹120", tags: ["egg"] },
       { name: "Egg Masala", description: "Two boiled eggs in onion-tomato masala.", price: "₹140", tags: ["egg"] },
@@ -93,7 +93,7 @@ window.MENU = [
     id: "drinks-desserts",
     name: "Drinks & Desserts",
     blurb: "Something cool after the spice.",
-    image: { src: "photo-1599043513900-ed6fe01d3833", alt: "Table with food and drinks" },
+    image: { src: "assets/illustrations/menu-drinks.svg", alt: "Illustration of majjige and gulab jamun" },
     items: [
       { name: "Majjige", description: "Spiced buttermilk with curry leaf and ginger.", price: "₹40", tags: ["veg"] },
       { name: "Lime Soda", description: "Sweet, salt or mixed.", price: "₹50", tags: ["veg"] },
