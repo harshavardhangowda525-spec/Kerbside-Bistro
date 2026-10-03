@@ -1,74 +1,65 @@
 /*
- * Kerbside Bistro — site configuration
+ * Donne Gowdru Biriyani Mane — site configuration
  * ------------------------------------------------------------------
- * Single source of truth for business facts, imagery and integrations.
+ * Single source of truth for business details, imagery and integrations.
  * Edit this file to update the site; no layout changes are needed.
  *
- * Every fact below was supplied by the client brief. Do not add awards,
- * reviews, history or prices here unless the business provides them.
+ * DEMO STATE: address, phone, hours and payment details have not been
+ * supplied yet. Placeholders are shown and the Call / Directions buttons
+ * show a "to be confirmed" notice until real values are entered below.
  */
 window.SITE = {
-  /* Shows small "demo" annotations (sample menu, representative imagery,
+  /* Shows small "demo" annotations (sample prices, representative imagery,
      proposed copy). Set to false for the final client-facing launch. */
   demoMode: true,
 
-  name: "Kerbside Bistro",
+  name: "Donne Gowdru Biriyani Mane",
+  nameKannada: "ದೊನ್ನೆ ಗೌಡ್ರು ಬಿರಿಯಾನಿ ಮನೆ",
   /* Optional logo image (SVG/PNG). When null, the typographic wordmark is used. */
   logo: null,
 
   address: {
-    line1: "601, Armane Nagar",
-    line2: "3rd Main Road",
-    locality: "Sadashiv Nagar",
-    city: "Bangalore",
-    region: "Karnataka",
-    country: "IN",
+    display: "Address to be confirmed",
+    city: "Bengaluru",
   },
 
+  /* Fill these in to activate Call, WhatsApp booking and the phone links:
+     phone: { display: "+91 98765 43210", tel: "+919876543210", whatsapp: "919876543210" } */
   phone: {
-    display: "+91 99860 10077",
-    tel: "+919986010077",
-    whatsapp: "919986010077",
+    display: "Phone to be confirmed",
+    tel: null,
+    whatsapp: null,
   },
 
   hours: {
-    display: "9:00 AM – 9:15 PM",
-    open: "09:00",
-    close: "21:15",
+    display: "Hours to be confirmed",
   },
 
-  costForTwo: "₹900",
-  rating: "4.5",
-
-  cuisines: ["Cafe", "Continental", "Italian", "American", "Fast Food", "Desserts", "Beverages"],
-  highlights: ["Fresh Food", "Good Quality", "Ambience", "Service"],
-  payments: "Cash, cards & digital payments accepted",
+  payments: "Payment options to be confirmed",
 
   links: {
-    directions:
-      "https://www.google.com/maps/dir/?api=1&destination=" +
-      encodeURIComponent("Kerbside Bistro, 601, Armane Nagar, 3rd Main Road, Sadashiv Nagar, Bangalore"),
-    mapEmbed:
-      "https://www.google.com/maps?q=" +
-      encodeURIComponent("Kerbside Bistro, Armane Nagar, Sadashiv Nagar, Bangalore") +
-      "&z=16&output=embed",
-    /* Link to the full menu (PDF or page). null shows a "coming soon" notice. */
+    /* Google Maps directions link, e.g.
+       "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent("<full address>") */
+    directions: null,
+    /* Google Maps embed URL, e.g.
+       "https://www.google.com/maps?q=" + encodeURIComponent("<full address>") + "&z=16&output=embed" */
+    mapEmbed: null,
+    /* Link to the full menu (PDF or page). null shows a notice. */
     fullMenu: null,
-    /* Online ordering link (own system or delivery partner). null hides the button. */
+    /* Online ordering link (own system or delivery partner). */
     order: null,
-    instagram: null,
   },
 
   booking: {
-    /* "whatsapp" — opens WhatsApp with a pre-filled enquiry (no backend needed)
+    /* "whatsapp" — opens WhatsApp with a pre-filled enquiry (needs phone.whatsapp)
        "endpoint" — POSTs JSON to booking.endpoint (Formspree, webhook, etc.)
        "demo"     — validates only; nothing is sent                          */
-    mode: "whatsapp",
+    mode: "demo",
     endpoint: null,
-    firstSlot: "09:00",
-    lastSlot: "21:00",
-    slotMinutes: 15,
-    maxGuests: 20,
+    firstSlot: "12:00",
+    lastSlot: "22:30",
+    slotMinutes: 30,
+    maxGuests: 30,
   },
 
   credit: {
@@ -77,25 +68,23 @@ window.SITE = {
     url: null,
   },
 
-  /* Unsplash photo IDs used as representative imagery for the demo.
-     Replace with real photographs: either swap the ID for a local path
-     (e.g. "assets/img/interior.jpg") or a full URL. */
+  /* Representative imagery (Unsplash photo IDs) for the demo.
+     Replace with real photographs: a local path ("assets/img/biryani.jpg") or a full URL. */
   images: {
-    hero: { src: "photo-1554118811-1e0d58224f24", alt: "Warmly lit café interior with wooden tables" },
-    experience: { src: "photo-1501339847302-ac426a4a7cbb", alt: "Guests relaxing at tables in a sunlit café" },
-    experienceDetail: { src: "photo-1495474472287-4d71bcdd2085", alt: "A cup of coffee on a café table" },
-    visit: { src: "photo-1445116572660-236099ec97a0", alt: "Café interior with warm pendant lighting" },
-    booking: { src: "photo-1559339352-11d035aa65de", alt: "Set tables in a softly lit dining room" },
+    hero: { src: "photo-1563379091339-03b21ab4a4f8", alt: "Plate of chicken biryani with whole spices" },
+    experience: { src: "photo-1589302168068-964664d93dc0", alt: "Biryani being served from a large pot" },
+    experienceDetail: { src: "photo-1610057099443-fde8c4d50f91", alt: "Fried chicken kabab pieces" },
+    booking: { src: "photo-1585937421612-70a008356fbe", alt: "A spread of Indian non-vegetarian dishes on a table" },
   },
 
   gallery: [
-    { src: "photo-1517248135467-4c7edcad34c4", alt: "Dining room with warm lighting and set tables", caption: "The dining room", shape: "tall" },
-    { src: "photo-1509042239860-f550ce710b93", alt: "Close-up of coffee in a ceramic cup", caption: "Coffee, slowly", shape: "square" },
-    { src: "photo-1565299624946-b28f40a0ae38", alt: "Pizza with fresh toppings on a wooden board", caption: "Italian plates", shape: "wide" },
-    { src: "photo-1551024601-bf5c4b8c2c5b", alt: "Plated dessert", caption: "Desserts", shape: "square" },
-    { src: "photo-1504674900247-0877df9cc836", alt: "Plated main course on a dark table", caption: "Continental", shape: "square" },
-    { src: "photo-1461023058943-07fcbe16d735", alt: "Iced coffee in a tall glass", caption: "Beverages", shape: "square" },
-    { src: "photo-1414235077428-338989a2e8c0", alt: "Elegantly plated dish", caption: "On the plate", shape: "wide" },
-    { src: "photo-1521017432531-fbd92d768814", alt: "Café counter with coffee equipment", caption: "Behind the counter", shape: "wide" },
+    { src: "photo-1589302168068-964664d93dc0", alt: "Biryani in a large serving pot", caption: "From the handi", shape: "tall" },
+    { src: "photo-1610057099443-fde8c4d50f91", alt: "Crisp fried chicken pieces", caption: "Chicken kabab", shape: "square" },
+    { src: "photo-1563379091339-03b21ab4a4f8", alt: "Chicken biryani on a plate", caption: "Donne biryani", shape: "wide" },
+    { src: "photo-1603894584373-5ac82b2ae398", alt: "Rich chicken curry in a bowl", caption: "Chicken ghee roast", shape: "square" },
+    { src: "photo-1565557623262-b51c2513a641", alt: "Bowls of Indian curries", caption: "Saaru & curries", shape: "square" },
+    { src: "photo-1596797038530-2c107229654b", alt: "Spiced mutton dish", caption: "Mutton pepper fry", shape: "square" },
+    { src: "photo-1585937421612-70a008356fbe", alt: "Table set with several non-vegetarian dishes", caption: "The full spread", shape: "wide" },
+    { src: "photo-1599043513900-ed6fe01d3833", alt: "Grilled chicken pieces with onion", caption: "Fresh off the fire", shape: "wide" },
   ],
 };

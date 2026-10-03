@@ -1,6 +1,8 @@
-# Kerbside Bistro — Website
+# Donne Gowdru Biriyani Mane — Website
 
-Premium single-page website for **Kerbside Bistro**, a cafe and restaurant at 601, Armane Nagar, 3rd Main Road, Sadashiv Nagar, Bangalore.
+ದೊನ್ನೆ ಗೌಡ್ರು ಬಿರಿಯಾನಿ ಮನೆ
+
+Premium single-page demo website for **Donne Gowdru Biriyani Mane**, a non-vegetarian biryani house in the Bengaluru donne-biryani style.
 
 Static HTML, CSS and JavaScript with no build step and no third-party JavaScript.
 
@@ -29,24 +31,27 @@ assets/           Favicon (add logo and photos here)
 | What | Where |
 | --- | --- |
 | Logo | `SITE.logo` in `js/config.js` (path to SVG/PNG), and replace `assets/favicon.svg` |
-| Menu dishes and prices | Fill `items` in `js/menu-data.js`. The placeholder layout disappears automatically |
+| Address, phone, hours | `SITE.address`, `SITE.phone`, `SITE.hours`, `SITE.links.directions`, `SITE.links.mapEmbed` |
+| Menu dishes and prices | Edit `items` in `js/menu-data.js`. Diet tags `non-veg` / `egg` / `veg` show the standard Indian food symbols |
 | Full menu PDF | `SITE.links.fullMenu` |
 | Photographs | `SITE.images` and `SITE.gallery`. Use local paths such as `assets/img/x.jpg` or full URLs. The hero image is also in `index.html` (`<img class="hero__img">` and the preload `<link>`) |
 | Brand colours and fonts | CSS variables at the top of `css/styles.css` |
-| Reservations | `SITE.booking.mode`: `whatsapp` (default), `endpoint` (POST JSON to Formspree or a webhook), or `demo` |
+| Reservations | `SITE.booking.mode`: `demo` (current), `whatsapp` (needs the phone number), or `endpoint` (POST JSON to Formspree or a webhook) |
 | Online ordering | `SITE.links.order` |
 | Demo annotations | Set `SITE.demoMode = false` before the public launch |
 | Development credit | `SITE.credit` |
 
-## Content integrity
+## Demo content — confirm before launch
 
-Built only from the business information supplied in the brief:
+This is a client demonstration. The following is **sample or placeholder content** and is labelled on the page while `demoMode` is on:
 
-- **No invented content.** There are no dishes, prices, reviews, testimonials, awards or history. Menu categories show a clearly labelled sample layout.
-- **Imagery is representative.** It comes from Unsplash and is labelled "Representative imagery" while `demoMode` is on.
-- **Proposed copy is labelled.** The tagline *"Good food. Great ambience. Your neighbourhood table."* and the highlight descriptions are proposed website copy for client review.
-- **Bookings are enquiries.** The form never claims a reservation is confirmed. In WhatsApp mode it pre-fills a message for the guest to send.
-- **Structured data omits unconfirmed facts.** The JSON-LD leaves out opening days (not supplied) and the aggregate rating (no review count supplied). Add `openingHoursSpecification` once the days are confirmed.
+- **Menu and prices** (`js/menu-data.js`) are a sample donne-biryani / non-veg hotel menu. Replace them with the restaurant's confirmed dishes and prices.
+- **Address, phone, hours and payment options** show "to be confirmed". Call and Directions buttons explain this until real values are added in `js/config.js`.
+- **The map** appears automatically once `links.mapEmbed` is set.
+- **Booking** runs in `demo` mode: details are checked but not sent. Set the phone number and `booking.mode = "whatsapp"` (or a form endpoint) to make it live. The form never claims a table is confirmed.
+- **Services** (parcel, delivery, party orders and so on), the tagline and the About copy are proposed, for the owner to confirm.
+- **Photos** are representative images from Unsplash, not photographs of the restaurant.
+- **Structured data** (JSON-LD) omits address, phone and hours until they're confirmed.
 
 ## Accessibility and performance
 

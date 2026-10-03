@@ -1,5 +1,5 @@
 /*
- * Kerbside Bistro — interactions
+ * Restaurant website — interactions
  * Dependency-free. Reads content from window.SITE (config.js) and window.MENU (menu-data.js).
  */
 (() => {
@@ -57,8 +57,7 @@
   const textBindings = {
     phone: S.phone && S.phone.display,
     hours: S.hours && S.hours.display,
-    rating: S.rating,
-    cost: S.costForTwo,
+    address: S.address && S.address.display,
     payments: S.payments,
   };
   $$("[data-bind]").forEach((el) => {
@@ -66,17 +65,23 @@
     if (v) el.textContent = v;
   });
   const hrefBindings = {
-    tel: S.phone && `tel:${S.phone.tel}`,
+    tel: S.phone && S.phone.tel ? `tel:${S.phone.tel}` : null,
     directions: S.links && S.links.directions,
   };
   $$("[data-bind-href]").forEach((el) => {
     const v = hrefBindings[el.dataset.bindHref];
-    if (v) el.setAttribute("href", v);
+    if (v) {
+      el.setAttribute("href", v);
+      if (el.dataset.bindHref === "directions") { el.target = "_blank"; el.rel = "noopener"; }
+    } else if (el.dataset.missing) {
+      // Detail not supplied yet: explain instead of linking somewhere wrong.
+      el.addEventListener("click", (e) => { e.preventDefault(); toast(esc(el.dataset.missing)); });
+    }
   });
 
   if (S.logo) {
     const brand = $("[data-logo]");
-    if (brand) brand.innerHTML = `<img src="${esc(S.logo)}" alt="${esc(S.name || "Kerbside Bistro")}" />`;
+    if (brand) brand.innerHTML = `<img src="${esc(S.logo)}" alt="${esc(S.name || "")}" />`;
   }
 
   const credit = $("[data-credit]");
@@ -87,7 +92,23 @@
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
   const map = $("[data-map]");
-  if (map && S.links && S.links.mapEmbed) map.src = S.links.mapEmbed;
+  if (map && S.links && S.links.mapEmbed) {
+    map.innerHTML = `<iframe title="Map showing ${esc(S.name)}" src="${esc(S.links.mapEmbed)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+  }
+
+  // Stats derived from the menu data, so they stay true when the menu changes.
+  const menuCounts = {
+    biryani: (MENU[0] && MENU[0].items ? MENU[0].items.length : 0),
+    dishes: MENU.reduce((n, c) => n + (c.items ? c.items.length : 0), 0),
+    sections: MENU.length,
+  };
+  $$("[data-count-from]").forEach((el) => {
+    const v = menuCounts[el.dataset.countFrom];
+    if (!v) return el.closest(".stat") && el.closest(".stat").remove();
+    el.dataset.count = v;
+    el.dataset.pad = "2";
+    el.textContent = String(v).padStart(2, "0");
+  });
 
   /* ------------------------------------------------------------------
      Toast
@@ -113,6 +134,13 @@
   const panelEl = $("[data-menu-panel]");
   const pad = (n) => String(n).padStart(2, "0");
 
+  const TAG_LABELS = { spicy: "Spicy", signature: "House favourite", new: "New" };
+  const DIETS = { "non-veg": "Non-vegetarian", egg: "Contains egg", veg: "Vegetarian", vegan: "Vegan" };
+  function dietMark(tags = []) {
+    const d = tags.find((t) => DIETS[t]);
+    return d ? `<i class="diet diet--${d}" role="img" aria-label="${DIETS[d]}"></i>` : "";
+  }
+
   function renderMenu(index, focus) {
     const cat = MENU[index];
     if (!cat || !panelEl) return;
@@ -129,7 +157,7 @@
       ? cat.items
           .map(
             (it, i) => `<li style="--i:${i}">
-              <div><h4>${esc(it.name)}${(it.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</h4>
+              <div><h4>${dietMark(it.tags)}${esc(it.name)}${(it.tags || []).filter((t) => TAG_LABELS[t]).map((t) => `<span class="tag tag--${esc(t)}">${TAG_LABELS[t]}</span>`).join("")}</h4>
               ${it.description ? `<p>${esc(it.description)}</p>` : ""}</div>
               <span class="leader" aria-hidden="true"></span>
               ${it.price ? `<span class="price">${esc(it.price)}</span>` : ""}
@@ -149,7 +177,7 @@
       <article class="menu-card">
         <div class="menu-card__media">
           <img alt="${esc(cat.image ? cat.image.alt : "")}" decoding="async" />
-          ${hasItems ? "" : '<span class="demo-tag">Sample layout · Representative image</span>'}
+          <span class="demo-tag">${hasItems ? "Sample prices · Representative image" : "Sample layout · Representative image"}</span>
         </div>
         <div class="menu-card__body">
           <h3 class="menu-card__title">${esc(cat.name)}</h3>
@@ -160,7 +188,7 @@
               ? ""
               : `<p class="menu-card__note">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
-                  <span>${esc(cat.name)} dishes and prices will appear here once Kerbside Bistro's own menu is added.</span>
+                  <span>${esc(cat.name)} dishes and prices will appear here once the restaurant's own menu is added.</span>
                 </p>`
           }
         </div>
@@ -205,7 +233,7 @@
       if (S.links && S.links.fullMenu) {
         window.open(S.links.fullMenu, "_blank", "noopener");
       } else {
-        toast(`The full menu will be linked here once Kerbside Bistro shares it. For today's menu, call <a href="tel:${esc(S.phone.tel)}">${esc(S.phone.display)}</a>.`);
+        toast("The full printable menu will be linked here once the restaurant shares it.");
       }
     });
   }
@@ -507,7 +535,7 @@
     const note = $("[data-booking-note]", form);
     const submitLabel = $("[data-submit-label]", form);
     if (B.mode === "whatsapp") {
-      note.textContent = "It opens WhatsApp with your details for you to send. Your table is confirmed only once Kerbside Bistro replies.";
+      note.textContent = "It opens WhatsApp with your details for you to send. Your table is confirmed only once the restaurant replies.";
       submitLabel.textContent = "Send Enquiry via WhatsApp";
     } else if (B.mode === "demo") {
       note.textContent = "Demo mode: details are checked but not sent anywhere.";
@@ -566,7 +594,7 @@
         message: f.message.value.trim(),
       };
       const summary = `${esc(data.guests)} ${data.guests === 1 ? "guest" : "guests"} · ${esc(dateLabel)} · ${esc(timeLabel)}`;
-      const telLink = `<a href="tel:${esc(S.phone.tel)}">${esc(S.phone.display)}</a>`;
+      const telLink = S.phone && S.phone.tel ? `<a href="tel:${esc(S.phone.tel)}">${esc(S.phone.display)}</a>` : "the restaurant";
 
       if (B.mode === "endpoint" && B.endpoint) {
         const btn = $("button[type=submit]", form);
@@ -575,7 +603,7 @@
         try {
           const res = await fetch(B.endpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
           if (!res.ok) throw new Error(res.status);
-          showStatus(`<h3>Enquiry sent — not yet confirmed</h3><p>${summary}</p><p>The Kerbside Bistro team will contact you on ${esc(data.phone)} to confirm your table.</p>`);
+          showStatus(`<h3>Enquiry sent — not yet confirmed</h3><p>${summary}</p><p>The restaurant team will contact you on ${esc(data.phone)} to confirm your table.</p>`);
           form.reset(); guestsIn.value = 2;
         } catch (err) {
           showStatus(`<h3>We couldn't send that</h3><p>Please call ${telLink} to request your table.</p>`, true);
@@ -587,12 +615,12 @@
       }
 
       if (B.mode === "demo" || !S.phone || !S.phone.whatsapp) {
-        showStatus(`<h3>Enquiry checked — demo only</h3><p>${summary}</p><p>No booking system is connected yet, so nothing was sent. Please call ${telLink} to request a table.</p>`);
+        showStatus(`<h3>Enquiry checked — demo only</h3><p>${summary}</p><p>No booking system is connected yet, so nothing was sent. In the live site this request goes straight to ${S.phone && S.phone.tel ? telLink : "the restaurant"}.</p>`);
         return;
       }
 
       const text = [
-        "Hello Kerbside Bistro, I'd like to request a table.",
+        `Hello ${S.name}, I'd like to request a table.`,
         "",
         `Name: ${data.name}`,
         `Phone: ${data.phone}`,
@@ -607,7 +635,7 @@
       window.open(wa, "_blank", "noopener");
       showStatus(`<h3>Enquiry ready — not yet confirmed</h3>
         <p>${summary}</p>
-        <p>Send it on WhatsApp to reach Kerbside Bistro. Your table is confirmed only once the restaurant replies.</p>
+        <p>Send it on WhatsApp to reach ${esc(S.name)}. Your table is confirmed only once the restaurant replies.</p>
         <p class="book__status-actions"><a class="btn btn--primary btn--sm" href="${esc(wa)}" target="_blank" rel="noopener"><span>Send on WhatsApp</span></a>
         <span>or call <strong>${esc(S.phone.display)}</strong></span></p>`);
     });
