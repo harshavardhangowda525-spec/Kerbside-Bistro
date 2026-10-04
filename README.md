@@ -1,10 +1,8 @@
-# Donne Gowdru Biriyani Mane — Website
+# Kerbside Bistro — Website
 
-ದೊನ್ನೆ ಗೌಡ್ರು ಬಿರಿಯಾನಿ ಮನೆ
+A premium, motion-led single-page website for **Kerbside Bistro**, a café at 601, Armane Nagar, 3rd Main Road, Sadashiv Nagar, Bangalore.
 
-Premium single-page demo website for **Donne Gowdru Biriyani Mane**, a non-vegetarian biryani house in the Bengaluru donne-biryani style.
-
-Static HTML, CSS and JavaScript with no build step and no third-party JavaScript.
+It's plain HTML, CSS and JavaScript, with no build step and no third-party JavaScript. Fonts load from Google Fonts. Photos are hotlinked from Unsplash and serve as representative stock imagery for the demo.
 
 ## Run locally
 
@@ -13,52 +11,55 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-To deploy, upload the folder to any static host (Netlify, Vercel, GitHub Pages, cPanel).
+## Publish with GitHub Pages
 
-## Project structure
+1. In the repository, open **Settings → Pages**.
+2. Choose **Deploy from a branch** and pick `main` (or the preview branch) with the `/ (root)` folder.
+3. The site will be live at `https://harshavardhangowda525-spec.github.io/Kerbside-Bistro/`.
+
+The canonical URL, Open Graph URL, `sitemap.xml` and `robots.txt` all use that address. Update them if you connect a custom domain.
+
+## Files
 
 ```
-index.html        Semantic markup, SEO meta, Open Graph, JSON-LD
-css/styles.css    Design tokens (:root), layout, motion, responsive rules
-js/config.js      ← Business facts, images, links, booking settings
-js/menu-data.js   ← Menu categories and items
-js/main.js        Interactions: loader, reveals, parallax, menu, gallery, booking
-assets/           Favicon (add logo and photos here)
+index.html       Semantic markup, SEO meta, Open Graph, Restaurant JSON-LD
+css/styles.css   Design tokens (:root), layouts, motion system, responsive rules
+js/config.js     ← Business facts, images, cuisines, featured food, offers, reviews, gallery, booking
+js/menu-data.js  ← Menu categories and items (placeholders until the real menu is supplied)
+js/main.js       Intro, scroll engine, parallax, pinned food story, menu tabs, lightbox, cursor, booking
+sitemap.xml, robots.txt, assets/favicon.svg
 ```
 
-## Handing over to the real content
+## Replacing demo content
 
 | What | Where |
 | --- | --- |
-| Logo | `SITE.logo` in `js/config.js` (path to SVG/PNG), and replace `assets/favicon.svg` |
-| Address, phone, hours | `SITE.address`, `SITE.phone`, `SITE.hours`, `SITE.links.directions`, `SITE.links.mapEmbed` |
-| Menu dishes and prices | Edit `items` in `js/menu-data.js`. Diet tags `non-veg` / `egg` / `veg` show the standard Indian food symbols |
-| Full menu PDF | `SITE.links.fullMenu` |
-| Photographs | `SITE.images` and `SITE.gallery`. Use local paths such as `assets/img/x.jpg` or full URLs. The hero image is also in `index.html` (`<img class="hero__img">` and the preload `<link>`) |
+| Photos | Swap the Unsplash IDs in `js/config.js` and `js/menu-data.js` for the café's own photos (`assets/img/…` or full URLs). The hero image also appears in `index.html` (the `<img class="hero__img">` tag and the preload link). |
+| Menu | Replace `items` in `js/menu-data.js` with real dishes: `name`, `description`, `price`, `veg` (true/false) and `image`. |
+| Featured dishes | Set `dish` on each entry in `SITE.featured`. |
+| Offers | Edit `SITE.offers` and set `placeholder: false`. |
+| Reviews | Paste real guest reviews (with permission) into `SITE.reviews` and set `placeholder: false`. |
+| Full menu, reviews and gallery links | `SITE.links.fullMenu`, `SITE.links.reviews`, `SITE.links.gallery` |
+| Booking | `SITE.booking.mode`: `whatsapp` (current) or `endpoint` (POSTs JSON to Formspree or a webhook). |
+| Demo labels | Set `SITE.demoMode = false` at launch. |
 | Brand colours and fonts | CSS variables at the top of `css/styles.css` |
-| Reservations | `SITE.booking.mode`: `demo` (current), `whatsapp` (needs the phone number), or `endpoint` (POST JSON to Formspree or a webhook) |
-| Online ordering | `SITE.links.order` |
-| Demo annotations | Set `SITE.demoMode = false` before the public launch |
-| Development credit | `SITE.credit` |
 
-## Demo content — confirm before launch
+## Content integrity
 
-This is a client demonstration. The following is **sample or placeholder content** and is labelled on the page while `demoMode` is on:
-
-- **Menu and prices** (`js/menu-data.js`) are a sample donne-biryani / non-veg hotel menu. Replace them with the restaurant's confirmed dishes and prices.
-- **Address, phone, hours and payment options** show "to be confirmed". Call and Directions buttons explain this until real values are added in `js/config.js`.
-- **The map** appears automatically once `links.mapEmbed` is set.
-- **Booking** runs in `demo` mode: details are checked but not sent. Set the phone number and `booking.mode = "whatsapp"` (or a form endpoint) to make it live. The form never claims a table is confirmed.
-- **Services** (parcel, delivery, party orders and so on), the tagline and the About copy are proposed, for the owner to confirm.
-- **Photos** are representative images from Unsplash, not photographs of the restaurant.
-- **Structured data** (JSON-LD) omits address, phone and hours until they're confirmed.
+- **Business facts come only from the client brief:** address, phone, hours, cost for two, the 4.5 rating from 46 dining ratings, cuisines and payments.
+- **Placeholders are labelled:** menu items, prices, offers and reviews are clearly marked and are not invented.
+- **Booking never claims confirmation:** the form prepares a WhatsApp enquiry and says the table is confirmed only once the café replies.
+- **Structured data:**
+  - The rating is not in the JSON-LD. Google's review-snippet rules don't allow third-party ratings in a business's own markup.
+  - Opening hours are marked as daily, 9:00–21:15. Confirm the days with the café.
+- **Search Console:** paste your verification meta tag where indicated in `index.html`, then submit `sitemap.xml`.
 
 ## Accessibility and performance
 
-- Respects `prefers-reduced-motion`.
-- Keyboard-navigable menu tabs and lightbox.
-- Visible focus states and a skip link.
-- Animations use transforms, opacity and clip-path only, and reveals use `IntersectionObserver`.
-- Images are lazy-loaded with responsive `srcset` (AVIF/WebP via Unsplash `auto=format`).
-- The hero image is preloaded.
-- If an image fails to load, a branded fallback is shown.
+- **Motion and comfort:**
+  - Every animation respects `prefers-reduced-motion`.
+  - The intro is about 1.5 seconds, and shorter on repeat visits.
+  - The custom cursor and mouse-driven effects only run on desktop pointers.
+- **One efficient scroll loop:** a single `requestAnimationFrame` loop drives all scroll-linked motion, and only `transform`, `opacity`, `clip-path` and `filter` are animated.
+- **Images:** they are lazy-loaded with responsive `srcset`, and Unsplash's `auto=format` serves AVIF or WebP. The hero image is preloaded.
+- **Keyboard and screen readers:** the menu tabs, gallery and lightbox all work from the keyboard. Focus states are visible, and there's a skip link and ARIA labelling.
