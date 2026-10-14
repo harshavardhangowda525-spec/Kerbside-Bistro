@@ -1,6 +1,6 @@
-# Kerbside Bistro — Website
+# Netra Cafe — Website
 
-A premium, motion-led single-page website for **Kerbside Bistro**, a café at 601, Armane Nagar, 3rd Main Road, Sadashiv Nagar, Bangalore.
+A premium, motion-led single-page website for **Netra Cafe**, a café at 601, Armane Nagar, 3rd Main Road, Sadashiv Nagar, Bangalore.
 
 It's plain HTML, CSS and JavaScript, with no build step and no third-party JavaScript. Fonts load from Google Fonts. Photos are hotlinked from Unsplash and serve as representative stock imagery for the demo.
 

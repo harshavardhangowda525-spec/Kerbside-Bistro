@@ -1,5 +1,5 @@
 /*
- * Kerbside Bistro — menu
+ * Netra Cafe — menu
  * ------------------------------------------------------------------
  * PLACEHOLDER MENU. The café's actual dishes and prices have not been
  * supplied, so each category shows editable placeholder items.
