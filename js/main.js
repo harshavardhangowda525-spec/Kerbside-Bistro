@@ -1,5 +1,5 @@
 /*
- * Kerbside Bistro — interactions & motion
+ * Netra Cafe — interactions & motion
  * Dependency-free. Content comes from window.SITE (config.js) and window.MENU (menu-data.js).
  * One rAF-driven scroll loop feeds a `--p` (0–1 progress) custom property to
  * [data-p] elements; CSS turns that into parallax, scaling and reveals.
@@ -42,7 +42,7 @@
 
   /* ------------------------------------------------------------------ bindings */
   if (!S.demoMode) body.classList.add("no-demo");
-  const waText = encodeURIComponent(`Hello ${S.name || "Kerbside Bistro"}, I'd like to make an enquiry.`);
+  const waText = encodeURIComponent(`Hello ${S.name || "Netra Cafe"}, I'd like to make an enquiry.`);
   const hrefs = {
     directions: S.links && S.links.directions,
     whatsapp: S.phone && S.phone.whatsapp ? `https://wa.me/${S.phone.whatsapp}?text=${waText}` : null,
@@ -69,7 +69,7 @@
   railTrack.innerHTML = (S.cuisines || []).map((c, i) => `
     <li class="ci" style="--i:${i}">
       <a href="#menu" data-menu-link="${esc(c.menu)}" data-cursor="explore">
-        <img alt="${esc(c.name)} at Kerbside Bistro (representative photo)" loading="lazy" draggable="false" />
+        <img alt="${esc(c.name)} at Netra Cafe (representative photo)" loading="lazy" draggable="false" />
         <span class="ci__n">${pad(i + 1)} / ${pad(S.cuisines.length)}</span>
         <h3><span>${esc(c.name)}</span></h3>
         <p>${esc(c.text)}</p>
@@ -219,15 +219,15 @@
 
   $("[data-full-menu]").addEventListener("click", () => {
     if (S.links.fullMenu) window.open(S.links.fullMenu, "_blank", "noopener");
-    else toast(`The full menu will be linked here once Kerbside Bistro shares it. For today's menu, call ${telLink}.`);
+    else toast(`The full menu will be linked here once Netra Cafe shares it. For today's menu, call ${telLink}.`);
   });
   $("[data-full-gallery]").addEventListener("click", () => {
     if (S.links.gallery) window.open(S.links.gallery, "_blank", "noopener");
-    else toast("The full gallery (e.g. Kerbside Bistro's Instagram) will be linked here.");
+    else toast("The full gallery (e.g. Netra Cafe's Instagram) will be linked here.");
   });
   $("[data-more-reviews]").addEventListener("click", () => {
     if (S.links.reviews) window.open(S.links.reviews, "_blank", "noopener");
-    else toast("This will link to Kerbside Bistro's reviews page once it's provided.");
+    else toast("This will link to Netra Cafe's reviews page once it's provided.");
   });
   doc.addEventListener("click", (e) => {
     const b = e.target.closest("[data-claim]");
@@ -513,7 +513,7 @@
       try {
         const res = await fetch(B.endpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
         if (!res.ok) throw new Error(res.status);
-        show(`<h3>Request sent — not yet confirmed</h3><p>${summary}</p><p>Kerbside Bistro will contact you on ${esc(data.phone)} to confirm your table.</p>`);
+        show(`<h3>Request sent — not yet confirmed</h3><p>${summary}</p><p>Netra Cafe will contact you on ${esc(data.phone)} to confirm your table.</p>`);
       } catch (_) { show(`<h3>We couldn't send that</h3><p>Please call ${telLink} to book your table.</p>`, true); }
       return;
     }
@@ -525,7 +525,7 @@
     const wa = `https://wa.me/${S.phone.whatsapp}?text=${encodeURIComponent(text)}`;
     window.open(wa, "_blank", "noopener");
     show(`<h3>Almost there — not yet confirmed</h3><p>${summary}</p>
-      <p>Send the message we've prepared on WhatsApp. Your table is confirmed only once Kerbside Bistro replies.</p>
+      <p>Send the message we've prepared on WhatsApp. Your table is confirmed only once Netra Cafe replies.</p>
       <p><a class="btn btn--accent btn--sm" href="${esc(wa)}" target="_blank" rel="noopener"><span class="btn__t">Send on WhatsApp</span></a></p>
       <p>Or call ${telLink}.</p>`);
   });

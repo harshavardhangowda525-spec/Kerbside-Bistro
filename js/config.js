@@ -1,5 +1,5 @@
 /*
- * Kerbside Bistro — site configuration
+ * Netra Cafe — site configuration
  * ------------------------------------------------------------------
  * One place for business facts, images, links and integrations.
  * Everything on the page that comes from here updates automatically.
@@ -11,7 +11,7 @@ window.SITE = {
   /* Shows small "placeholder" labels on demo content. Set to false at launch. */
   demoMode: true,
 
-  name: "Kerbside Bistro",
+  name: "Netra Cafe",
   address: {
     line1: "601, Armane Nagar",
     line2: "3rd Main Road",
